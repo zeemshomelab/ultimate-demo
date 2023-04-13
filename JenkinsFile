@@ -5,6 +5,14 @@ pipeline {
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
     }
   }
+  environment{
+        DOCKERHUB_USERNAME = "zeemlinux"
+        APP_NAME = "ultimate-cicd"
+        IMAGE_TAG = "${BUILD_NUMBER}"
+        IMAGE_NAME = "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME}"
+        REGISTRY_CREDS = 'dockertoken'
+        SONAR_LOGIN = credentials('sonartoken')
+    }
   
   stages {
     stage('Checkout') {
@@ -49,25 +57,55 @@ pipeline {
         }
       }
     }
-    stage('Update Deployment File') {
-        environment {
-            GIT_REPO_NAME = "ultimate-demo"
-            GIT_USER_NAME = "zeemshomelab"
-        }
-        steps {
-           withCredentials([gitUsernamePassword(credentialsId: 'githubtoken', gitToolName: 'Default')]) {
-                sh '''
-                    git config user.email "zeems.homelab@gmail.com"
-                    git config user.name "zeemshomelab"
-                    BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" deployment.yml
-                    git add deployment.yml
-                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-                    git push https://github.com/zeemshomelab/ultimate-demo.git HEAD:main
-                '''
+    stage('Updating Kubernetes Deployment File'){
+            steps{
+                script{
+                    sh """
+                    cat deployment.yml
+                    sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' deployment.yml
+                    cat deployment.yml
+
+                    """
+                }
             }
         }
-    }
+        stage(' Push the Changed Deployment File Git '){
+            steps{
+                script{
+                    sh """
+                     git config --global user.name "zeemshomelab"
+                     git config --global user.email zeems.homelab@gmail.com
+                     git add deployment.yml
+                     git commit -m "updated deployment.yml file"
+                    """
+                    withCredentials([gitUsernamePassword(credentialsId: 'githubtoken', gitToolName: 'Default')]) {
+
+                     sh "git push https://github.com/zeemshomelab/ultimate-demo.git main"
+
+                   }
+                   
+                }
+            }
+       }
+    // stage('Update Deployment File') {
+    //     environment {
+    //         GIT_REPO_NAME = "ultimate-demo"
+    //         GIT_USER_NAME = "zeemshomelab"
+    //     }
+    //     steps {
+    //        withCredentials([gitUsernamePassword(credentialsId: 'githubtoken', gitToolName: 'Default')]) {
+    //             sh '''
+    //                 git config user.email "zeems.homelab@gmail.com"
+    //                 git config user.name "zeemshomelab"
+    //                 BUILD_NUMBER=${BUILD_NUMBER}
+    //                 sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" deployment.yml
+    //                 git add deployment.yml
+    //                 git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+    //                 git push https://github.com/zeemshomelab/ultimate-demo.git HEAD:main
+    //             '''
+    //         }
+    //     }
+    // }
   
   }
 }
