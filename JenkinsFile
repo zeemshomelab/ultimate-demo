@@ -10,8 +10,8 @@ pipeline {
     stage('Checkout') {
       steps {
         sh 'echo passed'
-        sh 'git fetch --tags --force --progress -- https://github.com/zeemshomelab/ultimate-demo.git'
-         git branch: 'main', url: 'https://github.com/zeemshomelab/ultimate-demo.git'
+        // sh 'git fetch --tags --force --progress -- https://github.com/zeemshomelab/ultimate-demo.git'
+        //  git branch: 'main', url: 'https://github.com/zeemshomelab/ultimate-demo.git'
       }
     }
     
