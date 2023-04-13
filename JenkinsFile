@@ -71,16 +71,18 @@ pipeline {
         }
         stage(' Push the Changed Deployment File Git '){
             steps{
+              withCredentials([gitUsernamePassword(credentialsId: 'githubtoken', gitToolName: 'Default')]) {
                 script{
                     sh """
                      git config --global user.name "zeemshomelab"
                      git config --global user.email zeems.homelab@gmail.com
                      git add deployment.yml
                      git commit -m "updated deployment.yml file"
+                     git push https://github.com/zeemshomelab/ultimate-demo.git HEAD:main
                     """
-                    withCredentials([gitUsernamePassword(credentialsId: 'githubtoken', gitToolName: 'Default')]) {
+                    // withCredentials([gitUsernamePassword(credentialsId: 'githubtoken', gitToolName: 'Default')]) {
 
-                     sh "git push https://github.com/zeemshomelab/ultimate-demo.git HEAD: main"
+                    //  sh "git push https://github.com/zeemshomelab/ultimate-demo.git HEAD: main"
 
                    }
                    
