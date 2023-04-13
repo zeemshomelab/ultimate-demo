@@ -1,0 +1,23 @@
+2023/04/13 17:02:29 [updater parent] run
+2023/04/13 17:02:29 [updater parent] checking for updates...
+2023/04/13 17:02:30 [updater parent] failed to get latest version: already up to date
+2023/04/13 17:02:30 [updater parent] starting /usr/bin/trufflehog
+2023/04/13 17:02:31 [updater child#1] run
+2023/04/13 17:02:31 [updater child#1] start program
+2023-04-13T17:02:31Z	info-2	trufflehog	trufflehog 3.31.5
+2023-04-13T17:02:31Z	info-2	trufflehog	engine started	{"workers": 2}
+2023-04-13T17:02:31Z	info-2	trufflehog	loaded decoders	{"count": 2}
+2023-04-13T17:02:31Z	info-2	trufflehog	loaded detectors	{"total": 1472, "verification_enabled": 1472, "verification_disabled": 0}
+🐷🔑🐷  TruffleHog. Unearth your secrets. 🐷🔑🐷
+
+2023-04-13T17:02:31Z	info-2	trufflehog	Found repos to scan	{"source_type": "SOURCE_TYPE_GITHUB", "source_name": "github", "count": 1}
+2023-04-13T17:02:31Z	info-2	trufflehog	attempting to clone repo 1/1	{"source_type": "SOURCE_TYPE_GITHUB", "source_name": "github", "repo": "https://github.com/zeemshomelab/ultimate-demo.git"}
+2023-04-13T17:02:31Z	info-1	trufflehog	successfully cloned repo	{"source_type": "SOURCE_TYPE_GITHUB", "source_name": "github", "subcommand": "git clone", "repo": "https://github.com/zeemshomelab/ultimate-demo.git", "path": "/tmp/trufflehog2177961051", "args": []}
+2023-04-13T17:02:31Z	info-1	trufflehog	scanning repo	{"source_type": "SOURCE_TYPE_GITHUB", "source_name": "github", "repo": "https://github.com/zeemshomelab/ultimate-demo.git", "base": "", "head": ""}
+2023-04-13T17:02:31Z	info-2	trufflehog	Checking public status	{"source_type": "SOURCE_TYPE_GITHUB", "source_name": "github", "repo": "https://github.com/zeemshomelab/ultimate-demo.git"}
+2023/04/13 17:02:31 [updater parent] checking for updates...
+2023-04-13T17:02:32Z	info-1	trufflehog	scanning staged changes	{"source_type": "SOURCE_TYPE_GITHUB", "source_name": "github", "path": "/tmp/trufflehog2177961051"}
+2023-04-13T17:02:32Z	info-1	trufflehog	scanning git repo complete	{"source_type": "SOURCE_TYPE_GITHUB", "source_name": "github", "Repo": "https://github.com/zeemshomelab/ultimate-demo.git", "path": "/tmp/trufflehog2177961051", "time": 243452699}
+2023-04-13T17:02:32Z	info-2	trufflehog	scanned 1/1 repos	{"source_type": "SOURCE_TYPE_GITHUB", "source_name": "github", "repo": "https://github.com/zeemshomelab/ultimate-demo.git"}
+2023-04-13T17:02:33Z	info-2	trufflehog	finished scanning	{"chunks": 22, "bytes": 17908}
+2023/04/13 17:02:33 [updater parent] prog exited with 0
