@@ -17,12 +17,17 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
+        // sh 'echo passed'
         checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/zeemshomelab/ultimate-demo.git']])
+        // sh 'git fetch --tags --force --progress -- https://github.com/zeemshomelab/ultimate-demo.git'
+        //  git branch: 'main', url: 'https://github.com/zeemshomelab/ultimate-demo.git'
       }
     }
+    
     stage('Build and Test') {
       steps {
         sh 'ls -ltr'
+        // build the project and create a JAR file
         sh 'mvn clean package'
       }
     }
