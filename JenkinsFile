@@ -7,7 +7,7 @@ pipeline {
   }
   environment{
         DOCKERHUB_USERNAME = "zeemlinux"
-        APP_NAME = "spring-boot-app"
+        APP_NAME = "ultimate-cicd"
         IMAGE_TAG = "${BUILD_NUMBER}"
         IMAGE_NAME = "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME}"
         REGISTRY_CREDS = 'dockertoken'
@@ -43,7 +43,7 @@ pipeline {
     }
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME}:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "zeemlinux/ultimate-cicd:${BUILD_NUMBER}"
          DOCKERFILE_LOCATION = "."
         REGISTRY_CREDENTIALS = credentials('dockertoken')
       }
