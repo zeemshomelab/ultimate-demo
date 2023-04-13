@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: spring-boot-app
-        image: zeemlinux/ultimate-cicd:2
+        image: zeemlinux/ultimate-cicd:27
         ports:
         - containerPort: 8080
