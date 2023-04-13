@@ -17,17 +17,12 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        // sh 'echo passed'
         checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/zeemshomelab/ultimate-demo.git']])
-        // sh 'git fetch --tags --force --progress -- https://github.com/zeemshomelab/ultimate-demo.git'
-        //  git branch: 'main', url: 'https://github.com/zeemshomelab/ultimate-demo.git'
       }
     }
-    
     stage('Build and Test') {
       steps {
         sh 'ls -ltr'
-        // build the project and create a JAR file
         sh 'mvn clean package'
       }
     }
@@ -80,34 +75,11 @@ pipeline {
                      git commit -m "updated deployment.yml file"
                      git push https://github.com/zeemshomelab/ultimate-demo.git HEAD:main
                     """
-                    // withCredentials([gitUsernamePassword(credentialsId: 'githubtoken', gitToolName: 'Default')]) {
-
-                    //  sh "git push https://github.com/zeemshomelab/ultimate-demo.git HEAD: main"
-
                    }
                    
                 }
             }
        }
-    // stage('Update Deployment File') {
-    //     environment {
-    //         GIT_REPO_NAME = "ultimate-demo"
-    //         GIT_USER_NAME = "zeemshomelab"
-    //     }
-    //     steps {
-    //        withCredentials([gitUsernamePassword(credentialsId: 'githubtoken', gitToolName: 'Default')]) {
-    //             sh '''
-    //                 git config user.email "zeems.homelab@gmail.com"
-    //                 git config user.name "zeemshomelab"
-    //                 BUILD_NUMBER=${BUILD_NUMBER}
-    //                 sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" deployment.yml
-    //                 git add deployment.yml
-    //                 git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-    //                 git push https://github.com/zeemshomelab/ultimate-demo.git HEAD:main
-    //             '''
-    //         }
-    //     }
-    // }
-  
+   
   }
 }
